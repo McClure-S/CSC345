@@ -37,6 +37,7 @@ $light = "#f6f6f6";//#f6f6f6
       margin-bottom: 30px;
   }  
   .jumbotron, footer {
+      margin: auto;
       background-color: <?php echo $primary; ?>;
       color: #fff;
       padding: 100px 25px;
@@ -199,17 +200,22 @@ $light = "#f6f6f6";//#f6f6f6
 	
 	
 .card {
+  background-color: rgba(255,255,255,0.8);
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   max-width: 300px;
   margin: 1rem;
   text-align: center;
   font-family: arial;
   padding: 0 !important;
+  z-index: 2;
+  color:black;
 }
 
+
 .price {
-  color: grey;
+  color: black;
   font-size: 22px;
+  z-index: 3;
 }
 
 .card a.btn {
@@ -227,3 +233,24 @@ $light = "#f6f6f6";//#f6f6f6
 .card a.btn:hover {
   opacity: 0.7;
 }
+
+.card img{
+  max-height: 300px;
+  height: 300px;
+}
+
+#cardbg{
+  background-image: url("imgs/cardbg.jpg");
+  background-size: cover;
+  height: 100%;
+  background-position: center;
+  background-attachment: fixed;
+  
+}
+
+
+
+
+
+
+

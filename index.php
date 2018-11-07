@@ -3,7 +3,6 @@
 index.php
 This is the landing page.
 
-asdfa;ksdhfkas;dfj
 Created: 10/31/2018
 Author: Larry Elliott
 */
@@ -19,8 +18,8 @@ $session = new Session($db);
 
 $loggedInID = $session->loggedIn();
 
-$page = new Page("Software Engineering");
-$page->setSubtitle("Group 1");
+$page = new Page("Maple Blaze");
+$page->setSubtitle("Weed Done Right");
 
 
 if ($loggedInID) {
@@ -46,10 +45,12 @@ if ($loggedInID) {
 		</div>
 	</div>');
 }
-
+$page->addContent('<div id="cardbg">');
 $page->containerStart("user-cards");
 $page->addContent(User::allUsersCards($db));
 $page->containerEnd();
+$page->addContent('</div>');
+
 
 $page->containerStart("user-table","bg-light");
 $page->addContent(User::allUsersTable($db));
