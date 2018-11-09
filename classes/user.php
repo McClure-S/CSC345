@@ -20,6 +20,7 @@ class User {
 	private $Photo;
 	private $PhotoBase64;
 	private $Access;
+	private $Cart;
 	
 	public function __construct($db, $session, $IDorEmail = false, $Password = false) {
 		$this->db = $db;
@@ -29,8 +30,11 @@ class User {
 			$stmt = $this->db->prepare('SELECT * FROM user WHERE Email=:Username AND Password=:Password');
 			$stmt->bindParam(':Username', $IDorEmail);
 			$stmt->bindParam(':Password', $this->Password);
+
+		
 			$stmt->execute();
-			if ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+
+			if($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
 				$this->OriginalID = $row['ID'];
 				$this->ID = $row['ID'];
 				$this->FirstName = $row['FirstName'];
@@ -39,11 +43,14 @@ class User {
 				$this->Photo = $row['Photo'];
 				$this->PhotoBase64 = $row['PhotoBase64'];
 				$this->Access = $row['Access'];
+				$this->Cart = $row['Cart'];
 			} else {
 				$session->addMessage("danger","Error getting User. Invalid Username or Password.");
 				$session->errorOut();
 			}
-		} else if ($IDorEmail !== false && $IDorEmail != "new") {
+		} 
+
+		else if ($IDorEmail !== false && $IDorEmail != "new") {
 			$stmt = $this->db->prepare('SELECT * FROM user WHERE ID=:ID');
 			$stmt->bindParam(':ID', $IDorEmail);
 			$stmt->execute();
@@ -111,6 +118,14 @@ class User {
 	
 	public function getAccess () {
 		return $this->Access;
+	}
+
+	public function getCart(){
+		return $this->Cart;
+	}
+
+	public function setCart(){
+		$this->Cart= $value;
 	}
 	
 	public function setFirstName ($value) {
@@ -279,4 +294,46 @@ class User {
 		
 		return $cards;
 	}
+
+	public static function cartCard ($db) {
+		
+		//gets the users cart ID's 
+		$stmt = $db->query('SELECT Cart FROM user WHERE ID="7"');
+		$row = $stmt->fetch(PDO::FETCH_ASSOC);
+		$cartItems = $row["Cart"];
+
+
+		$stmt = $db->query('SELECT * FROM inventory');
+
+
+
+
+		$cards  = '<div class="row center-block">';//'<div class="w3-row">';
+
+
+		//displays the cartCards
+		while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+			
+			$image = $row["image ref"];
+			//$cost = $row["cost"];
+
+			$cards .= '
+			<div class="card col-sm-6">
+				
+				<img src="'.$image.'" alt="Avatar" style="width:100%">
+				<h1>'.$row['name'].'</h1>
+				<p class="price">$'.$row['cost'].'</p>
+				<h3>Description: </h3>
+				<p style="text-align: left; overflow-y: scroll; padding-left: 10px; padding-right: 10px;">'.$row['description'].'</p>
+			
+				<a href="?profile='.$row['id'].'" class="btn btn-primary">Remove from cart</a>
+				</div>
+			';
+		}
+		
+		$cards .= "</div>\n";
+		
+		return $cards;
+	}
+
 }

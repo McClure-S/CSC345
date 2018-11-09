@@ -19,7 +19,7 @@ $session = new Session($db);
 $loggedInID = $session->loggedIn();
 
 $page = new Page("Maple Blaze");
-$page->setSubtitle("Weed Done Right");
+$page->setSubtitle("Weed Ey?");
 
 
 if ($loggedInID) {
@@ -52,7 +52,7 @@ $page->containerEnd();
 $page->addContent('</div>');
 
 
-$page->containerStart("user-table","bg-light");
+/*$page->containerStart("user-table","bg-light");
 $page->addContent(User::allUsersTable($db));
 $page->containerEnd();
 
@@ -70,7 +70,7 @@ $page->containerStart("edit3");
 $user = new User($db, $session, 3);
 $page->addContent($user->editForm());
 $page->containerEnd();
-
+*/
 
 
 

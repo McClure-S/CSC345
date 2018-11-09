@@ -203,14 +203,23 @@ $light = "#f6f6f6";//#f6f6f6
   background-color: rgba(255,255,255,0.8);
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   max-width: 300px;
+  height: 600px;
+  max-height: 600px;
   margin: 1rem;
+  overflow-y: scroll;
   text-align: center;
   font-family: arial;
   padding: 0 !important;
   z-index: 2;
   color:black;
+  transition: .3s all;
 }
 
+.card:hover{
+  background-color: rgba(255,255,255,1);
+  box-shadow: 0 6px 10px 0 rgba(0,0,0, 0.7);
+  transition: .5s all;
+}
 
 .price {
   color: black;

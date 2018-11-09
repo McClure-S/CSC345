@@ -18,8 +18,8 @@ $session = new Session($db);
 
 $loggedInID = $session->loggedIn();
 
-$page = new Page("Software Engineering");
-$page->setSubtitle("Group 1");
+$page = new Page("Maple Blaze");
+$page->setSubtitle("Weed Ey?");
 
 
 if ($loggedInID) {
