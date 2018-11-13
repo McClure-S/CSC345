@@ -335,5 +335,32 @@ class User {
 		
 		return $cards;
 	}
-
+	
+	public static function allItemCards ($db) {
+	    //https://www.w3schools.com/howto/howto_css_product_card.asp
+	    $stmt = $db->query('SELECT * FROM inventory');
+	    
+	    $cards  = '<div class="row center-block">';//'<div class="w3-row">';
+	    
+	    while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+	        
+	        $image = 'https://www.w3schools.com/howto/img_avatar.png';
+	        if (strlen($row['image ref']) > 1)
+	            $image = $row['image ref'];
+	            
+	            $cards .= '
+			<div class="card col-sm-6">
+				<img src="'.$image.'" alt="Avatar" style="width:100%">
+				<h1>'.$row['name'].' '.$row['type'].'</h1>
+				<p class="price">$'.$row['cost'].'</p>
+				<p>My ID number is '.$row['id'].'</p>
+				<a href="?profile='.$row['id'].'" class="btn btn-primary">See Profile</a>
+			</div>
+			';
+	    }
+	    
+	    $cards .= "</div>\n";
+	    
+	    return $cards;
+	}
 }

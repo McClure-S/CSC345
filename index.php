@@ -47,7 +47,7 @@ if ($loggedInID) {
 }
 $page->addContent('<div id="cardbg">');
 $page->containerStart("user-cards");
-$page->addContent(User::allUsersCards($db));
+$page->addContent(User::allItemCards($db));
 $page->containerEnd();
 $page->addContent('</div>');
 
