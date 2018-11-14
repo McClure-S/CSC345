@@ -4,7 +4,7 @@ index.php
 This is the landing page.
 
 Created: 10/31/2018
-Author: Larry Elliott
+Author: eCommerce
 */
 
 require_once "classes/session.php";
