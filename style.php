@@ -4,7 +4,7 @@ style.php
 This is the landing page.
 
 Created: 10/31/2018
-Author: Larry Elliott
+Author: eCommerce
 Original Source: https://www.w3schools.com/bootstrap/bootstrap_theme_company.asp
 */
 
