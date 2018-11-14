@@ -5,7 +5,7 @@ This is used for user login and handling messages to the user.
 There is also a function to errorOut if the program needs to stop everything and give the user a message.
 
 Created: 10/31/2018
-Author: Larry Elliott
+Author: eCommerce
 */
 
 require_once "classes/user.php";
