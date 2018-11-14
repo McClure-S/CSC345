@@ -23,6 +23,7 @@ class User {
 	private $Cart;
 	
 	public function __construct($db, $session, $IDorEmail = false, $Password = false) {
+		
 		$this->db = $db;
 		
 		if ($IDorEmail !== false && $Password !== false) {
@@ -37,6 +38,7 @@ class User {
 			if($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
 				$this->OriginalID = $row['ID'];
 				$this->ID = $row['ID'];
+
 				$this->FirstName = $row['FirstName'];
 				$this->LastName = $row['LastName'];
 				$this->Email = $row['Email'];
@@ -295,47 +297,62 @@ class User {
 		return $cards;
 	}
 
-	public static function cartCard ($db) {
+
+	public static function cartCard ($db, $session) {
 		
-		//gets the users cart ID's 
-		$stmt = $db->query('SELECT Cart FROM user WHERE ID="7"');
+		//I just need to figure out how to get the ID of the current user.
+		$userID = $session->loggedIn();
+		
+		
+		//finds person in db using ID
+		$stmt = $db->query('SELECT Cart FROM user WHERE id="'.$userID.'"');
+		
+		//now this gets their cart value
 		$row = $stmt->fetch(PDO::FETCH_ASSOC);
 		$cartItems = $row["Cart"];
-
-
-		$stmt = $db->query('SELECT * FROM inventory');
-
-
-
-
-		$cards  = '<div class="row center-block">';//'<div class="w3-row">';
-
-
-		//displays the cartCards
-		while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-			
-			$image = $row["image ref"];
-			//$cost = $row["cost"];
-
-			$cards .= '
-			<div class="card col-sm-6">
-				
-				<img src="'.$image.'" alt="Avatar" style="width:100%">
-				<h1>'.$row['name'].'</h1>
-				<p class="price">$'.$row['cost'].'</p>
-				<h3>Description: </h3>
-				<p style="text-align: left; overflow-y: scroll; padding-left: 10px; padding-right: 10px;">'.$row['description'].'</p>
-			
-				<a href="?profile='.$row['id'].'" class="btn btn-primary">Remove from cart</a>
-				</div>
-			';
-		}
 		
+
+		$cards  = '<div class="row center-block">';
+
+		if(strlen($cartItems) !== 0){
+			for($i = 0; $i < strlen($cartItems); $i++){
+
+				$stmt = $db->query('SELECT * FROM inventory WHERE id="'.$cartItems[$i].'"');
+
+
+
+
+				while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+					
+					$image = $row["image ref"];
+					//$cost = $row["cost"];
+
+					$cards .= '
+					<div class="card col-sm-6">
+						
+						<img src="'.$image.'" alt="Avatar" style="width:100%">
+						<h1>'.$row['name'].'</h1>
+						<p class="price">$'.$row['cost'].'</p>
+						<h3>Description: </h3>
+						<p style="text-align: left; padding-left: 10px; padding-right: 10px;">'.$row['description'].'</p>
+					
+						<a href="?removeItem='.$row['id'].'" class="btn btn-primary">Remove from cart</a>
+						</div>
+					';
+				}
+			}
+		}
+
+		else{
+			$session->addMessage("danger","Your cart is empty.");
+		}
+
+
 		$cards .= "</div>\n";
 		
 		return $cards;
 	}
-	
+
 	public static function allItemCards ($db) {
 	    //https://www.w3schools.com/howto/howto_css_product_card.asp
 	    $stmt = $db->query('SELECT * FROM inventory');
@@ -363,4 +380,9 @@ class User {
 	    
 	    return $cards;
 	}
+
+	public static funtion removeItem($ID, $db){
+		
+	}
+
 }
