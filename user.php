@@ -4,7 +4,7 @@ user.php
 This page is for managing the users.
 
 Created: 10/31/2018
-Author: Larry Elliott
+Author: eCommerce
 */
 
 require_once "classes/session.php";
