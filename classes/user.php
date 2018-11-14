@@ -4,7 +4,7 @@ user.php
 This User Class handles everything pertaining to users.
 
 Created: 10/31/2018
-Author: Larry Elliott
+Author: eCommerce
 */
 require_once "classes/database.php";
 require_once "classes/form.php";
