@@ -49,11 +49,6 @@ if ($loggedInID) {
 
 $user = new User($db, $session, $loggedInID);
 
-if ($user->getAccess() != "Admin") {
-	$session->addMessage('danger', 'You do not have permission to use this page.');
-	$session->errorOut();
-}
-
 
 
 if (isset($_POST['OriginalID'])){
@@ -62,7 +57,7 @@ if (isset($_POST['OriginalID'])){
 	$page->addContent('<div id="cardbg">');
 	$page->containerStart("edit-form");
 	$user = new User($db, $session, "fowler1na@alma.edu", "letmein");
-	$page->addContent($user->cartCard($db));
+	$page->addContent($user->cartCard($db, $session));
 	$page->containerEnd();
 	$page->addContent('</div>');
  
