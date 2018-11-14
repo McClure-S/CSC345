@@ -4,7 +4,7 @@ form.php
 A simple form library for building a form.
 
 Created: 10/31/2018
-Author: Larry Elliott
+Author: eCommerce
 
 Helpful Links:
     https://www.w3schools.com/bootstrap/bootstrap_forms.asp specifically Horizontal Forms
