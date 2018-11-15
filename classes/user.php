@@ -335,7 +335,17 @@ class User {
 						<p class="price">$'.$row['cost'].'</p>
 						<h3>Description: </h3>
 						<p style="text-align: left; padding-left: 10px; padding-right: 10px;">'.$row['description'].'</p>
-					
+						<select>
+						  <option value="1">1</option>
+						  <option value="2">2</option>
+						  <option value="3">3</option>
+						  <option value="4">4</option>
+						  <option value="5">6</option>
+						  <option value="7">7</option>
+						  <option value="8">8</option>
+						  <option value="9">9</option>
+						  <option value="10">10</option>
+						</select>
 						<a href="?removeItem='.$row['id'].'" class="btn btn-primary">Remove from cart</a>
 						</div>
 					';
