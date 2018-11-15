@@ -5,13 +5,8 @@ Handles the checkout methonds and forms.
 Created: 11/08/2018
 Author: Spencer McClure
 */
-require_once "classes/session.php";
-require_once "classes/page.php";
 require_once "classes/database.php";
-require_once "classes/user.php";
 require_once "classes/form.php";
-require_once "classes/checkout.php";
-
 class Checkout{
 	private $db;
 	private $form;

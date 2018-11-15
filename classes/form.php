@@ -4,7 +4,7 @@ form.php
 A simple form library for building a form.
 
 Created: 10/31/2018
-Author: eCommerce
+Author: Larry Elliott
 
 Helpful Links:
     https://www.w3schools.com/bootstrap/bootstrap_forms.asp specifically Horizontal Forms
@@ -150,7 +150,6 @@ class Form {
 	function idToLabel ($id) {
 		return ucwords(preg_replace('/(?<!^)(?<![A-Z0-9])([A-Z0-9])/', ' \\1', str_replace("_"," ",$id)));
 	}
-	
 	
 	
 	function addField () {}

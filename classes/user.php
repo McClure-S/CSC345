@@ -4,7 +4,7 @@ user.php
 This User Class handles everything pertaining to users.
 
 Created: 10/31/2018
-Author: eCommerce
+Author: Larry Elliott
 */
 require_once "classes/database.php";
 require_once "classes/form.php";
@@ -21,6 +21,7 @@ class User {
 	private $PhotoBase64;
 	private $Access;
 	private $Cart;
+	private $cartItems;
 	
 	public function __construct($db, $session, $IDorEmail = false, $Password = false) {
 		
@@ -300,7 +301,7 @@ class User {
 
 	public static function cartCard ($db, $session) {
 		
-		//I just need to figure out how to get the ID of the current user.
+		//ID of user logged in
 		$userID = $session->loggedIn();
 		
 		
@@ -325,28 +326,34 @@ class User {
 				while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
 					
 					$image = $row["image ref"];
-					//$cost = $row["cost"];
 
 					$cards .= '
 					<div class="card col-sm-6">
 						
 						<img src="'.$image.'" alt="Avatar" style="width:100%">
 						<h1>'.$row['name'].'</h1>
-						<p class="price">$'.$row['cost'].'</p>
+						<h2>'.$row['type'].'</h2>
+						<h3>Stock: '.$row['stock'].'</h3>
+						<h2 class="price">$'.$row['cost'].'</h2>
 						<h3>Description: </h3>
 						<p style="text-align: left; padding-left: 10px; padding-right: 10px;">'.$row['description'].'</p>
+						<h3> Quantity: </h3>
 						<select>
-						  <option value="1">1</option>
-						  <option value="2">2</option>
-						  <option value="3">3</option>
-						  <option value="4">4</option>
-						  <option value="5">6</option>
-						  <option value="7">7</option>
-						  <option value="8">8</option>
-						  <option value="9">9</option>
-						  <option value="10">10</option>
+							  <option value="1">1</option>
+							  <option value="2">2</option>
+							  <option value="3">3</option>
+							  <option value="4">4</option>
+							  <option value="5">6</option>
+							  <option value="7">7</option>
+							  <option value="8">8</option>
+							  <option value="9">9</option>
+							  <option value="10">10</option>
 						</select>
-						<a href="?removeItem='.$row['id'].'" class="btn btn-primary">Remove from cart</a>
+						
+						<form method="post" action="">
+						<button>Remove from cart
+						</button>
+						</form>
 						</div>
 					';
 				}
@@ -378,10 +385,13 @@ class User {
 	            $cards .= '
 			<div class="card col-sm-6">
 				<img src="'.$image.'" alt="Avatar" style="width:100%">
-				<h1>'.$row['name'].' '.$row['type'].'</h1>
+				<h1>'.$row['name'].'</h1>
+				<h2>'.$row['type'].'</h2>
 				<p class="price">$'.$row['cost'].'</p>
-				<p>My ID number is '.$row['id'].'</p>
-				<a href="?profile='.$row['id'].'" class="btn btn-primary">See Profile</a>
+				<p style="text-align: left; padding-left: 10px; padding-right: 10px;">'.$row['description'].'</p>
+				<form method="post">
+				<a href="?ID='.$row['id'].'" class="btn btn-primary">Add to cart</a>
+				</form>
 			</div>
 			';
 	    }
@@ -391,8 +401,25 @@ class User {
 	    return $cards;
 	}
 
-	public static funtion removeItem($ID, $db){
+	public static function removeItem($ID,$userID){
+
+		$stmt = $db->query('SELECT Cart FROM user WHERE id="'.$userID.'"');
 		
+		//now this gets their cart value
+		// $row = $stmt->fetch(PDO::FETCH_ASSOC);
+		// $cartItems = $row["Cart"];
+
+		$newCartItems = str_replace("$ID", "", $cartItems);
+
+		$sql = $db->query('UPDATE Cart FROM user SET ID='.$newCartItems.' WHERE id='.$userID.'"');
+
+
+		$stmt = $db->prepare($sql);
+
+		$stmt->execute();
+
+		echo "record updated sucessfully";
+	
 	}
 
 }

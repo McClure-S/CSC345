@@ -4,7 +4,7 @@ style.php
 This is the landing page.
 
 Created: 10/31/2018
-Author: eCommerce
+Author: Larry Elliott
 Original Source: https://www.w3schools.com/bootstrap/bootstrap_theme_company.asp
 */
 
@@ -227,6 +227,18 @@ $light = "#f6f6f6";//#f6f6f6
   z-index: 3;
 }
 
+.card button {
+  border: none;
+  outline: 0;
+  padding: 12px;
+  color: white;
+  background-color: #000;
+  text-align: center;
+  cursor: pointer;
+  width: 100%;
+  font-size: 18px;
+}
+
 .card a.btn {
   border: none;
   outline: 0;
@@ -239,10 +251,13 @@ $light = "#f6f6f6";//#f6f6f6
   font-size: 18px;
 }
 
-.card a.btn:hover {
+.card button:hover {
   opacity: 0.7;
 }
 
+.card a.btn:hover {
+  opacity: 0.7;
+}
 .card img{
   max-height: 300px;
   height: 300px;
@@ -257,6 +272,10 @@ $light = "#f6f6f6";//#f6f6f6
   
 }
 
+#checkoutForm{
+  padding-top: 30px;
+  border-top: 3px solid green;
+}
 
 
 

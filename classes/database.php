@@ -4,7 +4,7 @@ database.php
 A simple PDO wrapper for our database connection.
 
 Created: 10/31/2018
-Author: eCommerce
+Author: Larry Elliott
 */
 
 class Database extends PDO {

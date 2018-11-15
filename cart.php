@@ -14,15 +14,16 @@ $session = new Session($db);
 $loggedInID = $session->loggedIn();
 
 $page = new Page("Maple Blaze");
-$page->setSubtitle("Weed Ey?");
+$page->setSubtitle("Weed Eh?");
 
-//	Commented out until login thing is fixed... // 
 
 if ($loggedInID) {
 	$page->addNavigationItem("Home", './');
 	$page->addNavigationItem("Log Out", "?logout");
 } else {
 	$page->addNavigationItem("Log In", '#" data-toggle="modal" data-target="#loginModal');
+	$page->addNavigationItem("Sign Up", '#" data-toggle="modal" data-target="#signUpModal');
+
 	//https://www.w3schools.com/bootstrap/bootstrap_modal.asp
 	$page->addContent('
 	<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-hidden="true" style="z-index:10000">
@@ -36,6 +37,24 @@ if ($loggedInID) {
 				</div>
 				<div class="modal-body">
 					'.$session->loginForm().'
+				</div>
+			</div>
+		</div>
+	</div>');
+
+	$page->addContent('
+	<div class="modal fade" id="signUpModal" tabindex="-1" role="dialog" aria-hidden="true" style="z-index:10000">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h2 class="modal-title" id="exampleModalLabel">Sign In</h2>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					'.$session->signUpForm().'
+
 				</div>
 			</div>
 		</div>
@@ -56,19 +75,23 @@ $user = new User($db, $session, $loggedInID);
 if (isset($_POST['OriginalID'])){
 	User::saveForm($db,$session);
 }
+
+if(isset($_POST['submit']))
+{
+	removeItem($_POST['id'], $_POST['name']);
+}
+
 	$page->addContent('<div id="cardbg">');
 	$page->containerStart("edit-form");
-	$user = new User($db, $session, "fowler1na@alma.edu", "letmein");
+	//$user = new User($db, $session, "fowler1na@alma.edu", "letmein");
 	$page->addContent($user->cartCard($db, $session));
+	$page->addContent('<div id="checkoutForm">');
 	$page->addContent($checkout->checkoutForm());
+	$page->addContent('</div>');
+
 	$page->containerEnd();
 	$page->addContent('</div>');
  
-//  else {
-// 	$page->containerStart("user-table");
-// 	$page->addContent(User::allUsersTable($db, true));
-// 	$page->containerEnd();
-// }
 
 
 $page->renderPage($session);

@@ -5,7 +5,7 @@ This is used for user login and handling messages to the user.
 There is also a function to errorOut if the program needs to stop everything and give the user a message.
 
 Created: 10/31/2018
-Author: eCommerce
+Author: Larry Elliott
 */
 
 require_once "classes/user.php";
@@ -73,6 +73,17 @@ class Session {
 		$form->addTextInput('Username', true, "Email");
 		$form->addPassword('Password');
 		$form->addSubmit('Login');
+		return $form->getForm();
+	}
+
+	public function signUpForm() {
+		$form = new Form("signUpForm");
+		$form->addTextInput('FirstName');
+		$form->addTextInput('LastName');
+		$form->addTextInput('Email');
+		$form->addPassword('Password');
+		$form->addSubmit('Register');
+		//saveForm($db, $session);
 		return $form->getForm();
 	}
 }
