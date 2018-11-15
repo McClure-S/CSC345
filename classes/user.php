@@ -4,7 +4,7 @@ user.php
 This User Class handles everything pertaining to users.
 
 Created: 10/31/2018
-Author: eCommerce
+Author: Larry Elliott
 */
 require_once "classes/database.php";
 require_once "classes/form.php";
@@ -21,6 +21,7 @@ class User {
 	private $PhotoBase64;
 	private $Access;
 	private $Cart;
+	private $cartItems;
 	
 	public function __construct($db, $session, $IDorEmail = false, $Password = false) {
 		
@@ -300,7 +301,7 @@ class User {
 
 	public static function cartCard ($db, $session) {
 		
-		//I just need to figure out how to get the ID of the current user.
+		//ID of user logged in
 		$userID = $session->loggedIn();
 		
 		
@@ -325,7 +326,6 @@ class User {
 				while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
 					
 					$image = $row["image ref"];
-					//$cost = $row["cost"];
 
 					$cards .= '
 					<div class="card col-sm-6">
@@ -335,8 +335,11 @@ class User {
 						<p class="price">$'.$row['cost'].'</p>
 						<h3>Description: </h3>
 						<p style="text-align: left; padding-left: 10px; padding-right: 10px;">'.$row['description'].'</p>
-					
-						<a href="?removeItem='.$row['id'].'" class="btn btn-primary">Remove from cart</a>
+						
+						<form method="post" action="">
+						<input type="submit" id="'.$row['id'].'" name="'.$userID.'" value=Submit class="btn btn-primary">Remove from cart
+						</input>
+						</form>
 						</div>
 					';
 				}
@@ -370,8 +373,10 @@ class User {
 				<img src="'.$image.'" alt="Avatar" style="width:100%">
 				<h1>'.$row['name'].' '.$row['type'].'</h1>
 				<p class="price">$'.$row['cost'].'</p>
-				<p>My ID number is '.$row['id'].'</p>
-				<a href="?profile='.$row['id'].'" class="btn btn-primary">See Profile</a>
+				<p style="text-align: left; padding-left: 10px; padding-right: 10px;">'.$row['description'].'</p>
+				<form method="post">
+				<a href="?ID='.$row['id'].'" class="btn btn-primary">Add to cart</a>
+				</form>
 			</div>
 			';
 	    }
@@ -381,8 +386,25 @@ class User {
 	    return $cards;
 	}
 
-	public static funtion removeItem($ID, $db){
+	public static function removeItem($ID,$userID){
+
+		$stmt = $db->query('SELECT Cart FROM user WHERE id="'.$userID.'"');
 		
+		//now this gets their cart value
+		// $row = $stmt->fetch(PDO::FETCH_ASSOC);
+		// $cartItems = $row["Cart"];
+
+		$newCartItems = str_replace("$ID", "", $cartItems);
+
+		$sql = $db->query('UPDATE Cart FROM user SET ID='.$newCartItems.' WHERE id='.$userID.'"');
+
+
+		$stmt = $db->prepare($sql);
+
+		$stmt->execute();
+
+		echo "record updated sucessfully";
+	
 	}
 
 }

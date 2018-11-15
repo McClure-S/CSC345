@@ -12,9 +12,8 @@ $session = new Session($db);
 $loggedInID = $session->loggedIn();
 
 $page = new Page("Maple Blaze");
-$page->setSubtitle("Weed Ey?");
+$page->setSubtitle("Weed Eh?");
 
-//	Commented out until login thing is fixed... // 
 
 if ($loggedInID) {
 	$page->addNavigationItem("Home", './');
@@ -54,6 +53,12 @@ $user = new User($db, $session, $loggedInID);
 if (isset($_POST['OriginalID'])){
 	User::saveForm($db,$session);
 }
+
+if(isset($_POST['submit']))
+{
+	removeItem($_POST['id'], $_POST['name']);
+}
+
 	$page->addContent('<div id="cardbg">');
 	$page->containerStart("edit-form");
 	$user = new User($db, $session, "fowler1na@alma.edu", "letmein");
@@ -61,11 +66,6 @@ if (isset($_POST['OriginalID'])){
 	$page->containerEnd();
 	$page->addContent('</div>');
  
-//  else {
-// 	$page->containerStart("user-table");
-// 	$page->addContent(User::allUsersTable($db, true));
-// 	$page->containerEnd();
-// }
 
 
 $page->renderPage($session);

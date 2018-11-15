@@ -4,7 +4,7 @@ user.php
 This page is for managing the users.
 
 Created: 10/31/2018
-Author: eCommerce
+Author: Larry Elliott
 */
 
 require_once "classes/session.php";
@@ -19,7 +19,7 @@ $session = new Session($db);
 $loggedInID = $session->loggedIn();
 
 $page = new Page("Maple Blaze");
-$page->setSubtitle("Weed Ey?");
+$page->setSubtitle("Weed Eh?");
 
 
 if ($loggedInID) {

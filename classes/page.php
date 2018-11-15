@@ -4,7 +4,7 @@ page.php
 This is a class used to build a page with a bootstrap 3 template.
 
 Created: 10/31/2018
-Author: eCommerce
+Author: Larry Elliott
 Helpful Links:
     https://www.w3schools.com/bootstrap/bootstrap_theme_company.asp
     https://www.w3schools.com/bootstrap/bootstrap_ref_comp_glyphs.asp
@@ -89,7 +89,7 @@ class Page {
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>                        
 			  </button>
-			  <a class="navbar-brand" href="/~elliott/"><span class="glyphicon glyphicon-fire"></span>Logo</a>
+			  <a class="navbar-brand" href="/~fowler1na/"><span class="glyphicon glyphicon-fire"></span>Logo</a>
 			</div>
 			<div class="collapse navbar-collapse" id="myNavbar">
 			  <ul class="nav navbar-nav navbar-right">
