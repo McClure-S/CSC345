@@ -4,7 +4,7 @@ user.php
 This page is for managing the users.
 
 Created: 10/31/2018
-Author: eCommerce
+Author: Larry Elliott
 */
 
 require_once "classes/session.php";
@@ -25,6 +25,7 @@ $page->setSubtitle("Weed Ey?");
 if ($loggedInID) {
 	$page->addNavigationItem("Home", './');
 	$page->addNavigationItem("Manage Users", 'user.php');
+	$page->addNavigationItem("Cart",'cart.php');
 	$page->addNavigationItem("Log Out", "?logout");
 } else {
 	$page->addNavigationItem("Log In", '#" data-toggle="modal" data-target="#loginModal');

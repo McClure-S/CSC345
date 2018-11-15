@@ -5,8 +5,10 @@ require_once "classes/page.php";
 require_once "classes/database.php";
 require_once "classes/user.php";
 require_once "classes/form.php";
+require_once "classes/checkout.php";
 
 $db = new Database();
+$checkout = new Checkout($db);
 $session = new Session($db);
 
 $loggedInID = $session->loggedIn();
@@ -58,6 +60,7 @@ if (isset($_POST['OriginalID'])){
 	$page->containerStart("edit-form");
 	$user = new User($db, $session, "fowler1na@alma.edu", "letmein");
 	$page->addContent($user->cartCard($db, $session));
+	$page->addContent($checkout->checkoutForm());
 	$page->containerEnd();
 	$page->addContent('</div>');
  
